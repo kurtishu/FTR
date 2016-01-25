@@ -1,10 +1,23 @@
 package com.dreamfactory.ftr;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.dreamfactory.ftr.FilePaserManager.Callback;
 
 public class MainViewController {
 
@@ -36,7 +49,6 @@ public class MainViewController {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(e.toString());
 				validateInputPath();
 			}
 		});
@@ -85,6 +97,17 @@ public class MainViewController {
 		}
 
 		// Start parse files
-		new FilePaserManager(path).start();
+		new FilePaserManager(path).start(new Callback() {
+
+			@Override
+			public void success() {
+				//JOptionPane.showMessageDialog(mainFrame, "文件导出成功", "恭喜恭喜",
+				//		JOptionPane.CLOSED_OPTION);
+				int option = JOptionPane.showConfirmDialog(mainFrame, "文件导出成功", "恭喜恭喜", JOptionPane.CLOSED_OPTION);
+				if(option == JOptionPane.OK_OPTION) {
+					System.exit(0);
+			    }
+			
+			}});
 	}
 }

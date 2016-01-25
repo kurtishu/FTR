@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.dreamfactory.ftr.mode.ResultMode;
 import com.dreamfactory.ftr.parse.FileReaderHelper;
+import com.dreamfactory.ftr.poi.ExportResult;
 
 public class FilePaserManager {
 	
@@ -17,9 +18,16 @@ public class FilePaserManager {
 		parseResults.clear();
 	}
 	
-	public void start() {
+	public void start(Callback callback) {
 		traverseFiles(targetFile);
 		 System.out.println("Length:"+parseResults.size() + "parseResults" +parseResults.toString());
+	    
+		 try {
+			new ExportResult().writeData2Xls(parseResults);
+			 callback.success();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void paseFile(File file) {
@@ -48,5 +56,10 @@ public class FilePaserManager {
 				paseFile(file);
 			}
 		}
+	}
+	
+	public interface Callback {
+		  
+		public void success();
 	}
 }
