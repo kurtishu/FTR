@@ -49,6 +49,8 @@ public class MainViewController {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("filePath:" + System.getProperty("user.dir"));
+				
 				validateInputPath();
 			}
 		});

@@ -53,8 +53,30 @@ public class ResultMode {
 	}
 
 	public void parse(String str) {
-		// TODO
-		this.description = str;
+		try {
+			int indexSet = str.indexOf(":");
+			String targetStr = str.substring(indexSet + 1).trim();
+			targetStr = targetStr.replaceAll("\\[", "|");
+			targetStr = targetStr.replaceAll("\\]", "|");
+			String[] values = targetStr.trim().split("\\|");
+			for (int i = 0 ; i < values.length -1 ; i++) {
+				String key = values[i];
+				String value = values[i+1];
+				if ("reviewer".equalsIgnoreCase(key)) {
+					this.reviewer = value;
+				} else if ("priority".equalsIgnoreCase(key)) {
+					this.priorityLevel = value;
+				} else if ("description".equalsIgnoreCase(key)) {
+					this.description = value;
+				}
+			}
+		} catch ( Exception e) {
+			e.printStackTrace();
+		}
+		
+		this.reviewer =  (this.reviewer  == null) ? "N/A" : this.reviewer;
+		this.priorityLevel =  (this.priorityLevel  == null) ? "N/A" : this.priorityLevel;
+		this.description =  (this.description  == null) ? str : this.description;
 	}
 
 	@Override

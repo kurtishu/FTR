@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Sealed: true
+Class-Path: lib\poi.jar 
+Main-Class: com.dreamfactory.ftr.MainViewController 
